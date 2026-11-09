@@ -1,0 +1,97 @@
+# Casos de uso del prototipo operacional
+
+## CU01 Crear orden
+
+objetivo: Registrar una orden preventiva o correctiva con línea, piquete y descripción.
+
+pre: Aplicación abierta y disponible para acciones; MySQL configurado y accesible para completar la persistencia.
+
+flujo: Elegir Nueva orden; completar campos; seleccionar tipo; aceptar. Orden.crear valida los datos antes del INSERT. El DAO inserta la orden y la interfaz confirma el resultado. Para verla en el listado, el usuario pulsa Consultar.
+
+post: Nueva fila con ID generado y estado PENDIENTE. No se usa el ID como número de guía institucional.
+
+alternativas: Cancelar cierra el formulario sin insertar. Campo vacío, longitud inválida o tipo fuera del catálogo producen IllegalArgumentException. Un fallo JDBC se informa como operación no completada; no se muestra confirmación de éxito.
+
+codigo: VentanaPrincipal.crear → OrdenServicio.crear → Orden.crear → MySqlOrdenDao.insertar.
+
+pruebas: CP01–CP06 y CP12; MW01 y MW04.
+
+## CU02 Consultar órdenes
+
+objetivo: Listar todas las órdenes o recuperar una por su ID.
+
+pre: Aplicación abierta; base accesible para completar la consulta.
+
+flujo: Dejar el filtro vacío o ingresar un ID entero positivo; pulsar Consultar. El servicio valida el filtro y el DAO ejecuta SELECT parametrizado. La vista reemplaza el contenido de la tabla con el resultado y muestra la cantidad de órdenes.
+
+post: Listado de cero o más filas. Un ID válido inexistente devuelve una lista vacía y no modifica datos.
+
+alternativas: Un ID no numérico, no positivo o mayor que 2147483647 genera aviso de validación. SQLException se propaga hasta el aviso de la interfaz y se registra técnicamente. No se atribuye al programa una búsqueda por número de guía o por catálogo de piquetes.
+
+codigo: VentanaPrincipal.consultar → OrdenServicio.buscar → MySqlOrdenDao.listar → VentanaPrincipal.mostrar.
+
+pruebas: CP10, CP11, CP13 y CP16; consultas observadas en MW01 y MW03.
+
+## CU03 Cambiar estado
+
+objetivo: Actualizar el estado actual de una orden seleccionada.
+
+pre: Una fila seleccionada y MySQL disponible para actualizar.
+
+flujo: Pulsar Cambiar estado; elegir PENDIENTE, EN_PROCESO o FINALIZADA; aceptar. El servicio valida ID y estado; el DAO ejecuta UPDATE con parámetros. La barra de estado confirma la actualización. Consultar nuevamente permite ver el valor persistido.
+
+post: La fila existente conserva sus datos y presenta el nuevo estado en la consulta posterior. No se guarda un historial de transiciones.
+
+alternativas: Sin fila seleccionada se informa el motivo. Cancelar la selección de estado no ejecuta UPDATE. Si no hay filas afectadas se informa que la orden ya no existe. Errores SQL se propagan y presentan como fallo. Se permite cualquiera de los tres estados; no hay una secuencia de transición obligatoria.
+
+codigo: VentanaPrincipal.cambiar → OrdenServicio.cambiar → MySqlOrdenDao.actualizarEstado.
+
+pruebas: CP14, CP15, CP17 y CP18; MW02 y MW03.
+
+## CU04 Guardar órdenes en archivo
+
+objetivo: Escribir las órdenes consultadas desde MySQL en un archivo binario .lat.
+
+pre: MySQL accesible y destino con permisos de escritura.
+
+flujo: Elegir Opciones y Guardar archivo; seleccionar destino. Si existe, confirmar su reemplazo. El servicio consulta todas las órdenes, sin aplicar el filtro visible. ArchivoOrdenes escribe cabecera LAT-OT-1 y registros en un temporal, cierra recursos y mueve el archivo al destino. La interfaz informa la cantidad guardada.
+
+post: Archivo que conserva línea, piquete, descripción, tipo y estado; la base no se modifica. No contiene ID ni fecha original.
+
+alternativas: Cancelar el selector o rechazar el reemplazo no escribe el archivo. IOException informa problemas de formato, ruta o permisos; SQLException impide completar la consulta. El formato admite hasta 10000 órdenes. Estas alternativas de permisos no se declaran probadas manualmente.
+
+codigo: VentanaPrincipal.guardar → OrdenServicio.buscar → ArchivoOrdenes.guardar.
+
+pruebas: CP08 para escritura y lectura Unicode; MW05 para el recorrido de interfaz.
+
+## CU05 Recuperar órdenes de archivo
+
+objetivo: Leer un archivo .lat válido e incorporar su lote de órdenes en MySQL.
+
+pre: Archivo accesible y compatible; MySQL disponible para importar si se confirma.
+
+flujo: Elegir Recuperar archivo y seleccionar el archivo. ArchivoOrdenes valida primero formato, cantidad y datos. Se presenta la cantidad a agregar y la advertencia de nuevos ID y posibles duplicados. Al confirmar, el DAO inicia una transacción, inserta el lote y ejecuta commit. El usuario consulta para ver los registros.
+
+post: Se agregan órdenes con nuevos ID y fecha de creación de base, conservando texto, tipo y estado. Las órdenes previas permanecen. No es una restauración completa de MySQL.
+
+alternativas: Cancelar el selector o responder No evita la importación. Archivo truncado, incompatible o inválido produce IOException antes de escribir en MySQL. Un error durante las inserciones provoca rollback del lote y se propaga; un fallo del propio rollback se conserva como excepción suprimida. Repetir una importación válida agrega duplicados, según la advertencia.
+
+codigo: VentanaPrincipal.recuperar → ArchivoOrdenes.leer → OrdenServicio.importar → MySqlOrdenDao.importar.
+
+pruebas: CP08, CP09 y CP20–CP22; MW06 verifica el recorrido válido, sin inducir fallo SQL.
+
+## CU06 Cerrar aplicación
+
+objetivo: Cerrar la ventana del programa.
+
+pre: Ventana abierta. Para usar Salir desde el menú, no debe estar ocupado el worker que deshabilita las acciones.
+
+flujo: Elegir Opciones y Salir. Se ejecuta dispose sobre la ventana. El botón de cierre de la ventana también usa DISPOSE_ON_CLOSE.
+
+post: Ventana cerrada; las operaciones de base ya confirmadas permanecen persistidas. El cierre no elimina registros ni ejecuta una restauración de archivo.
+
+alternativas: No hay cuadro de confirmación en la acción Salir implementada. No se garantiza cancelación o reversión de una operación de fondo por cerrar la ventana: ese comportamiento no se presenta como una función probada.
+
+codigo: VentanaPrincipal: item Salir → dispose y DISPOSE_ON_CLOSE.
+
+pruebas: El recorrido MW03 incluye cierre y reapertura; no existe un caso automatizado exclusivo para CU06.

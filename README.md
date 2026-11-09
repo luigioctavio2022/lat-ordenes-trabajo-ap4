@@ -7,8 +7,11 @@ Prototipo operacional Java Swing + MySQL: alta, consulta por ID o listado, cambi
 ## Revisión ejecutada
 Java 17.0.20, MySQL 8.0.46 y Connector/J 8.4.0. Veintitrés comprobaciones automatizadas aprobadas y nueve capturas de la interfaz ejecutada en pantalla virtual. Datos sintéticos, sin conexión con sistemas de ENERSA. Los registros completos están en evidencias. Las 23 pruebas se ejecutaron mediante línea de comandos en el entorno separado. Luego el alumno abrió y ejecutó el proyecto en IntelliJ IDEA 2026.3 con Temurin 17.0.21.9 y MySQL 8.4.13 en Windows; las capturas windows-01, windows-02 y windows-03 documentan el recorrido manual. No se afirma que se hayan repetido allí las 23 pruebas automatizadas.
 
+## Verificación manual en la PC del alumno
+El 9 de noviembre de 2026 se documentaron seis casos manuales complementarios: alta de correctiva ID 2, actualización a EN_PROCESO, consulta tras reabrir, rechazo de línea vacía sin inserción, guardado de dos órdenes y recuperación con nuevos ID 3 y 4. La consulta posterior muestra cuatro filas con datos y estados conservados. Los detalles están en docs/PRUEBAS_MANUALES_WINDOWS.csv, evidencias/VERIFICACION_MANUAL_WINDOWS.md y el anexo E del informe completo. Estas comprobaciones no se suman al conteo de 23 pruebas automatizadas ni representan una repetición de aquellas. No se indujo un error de importación durante el recorrido manual.
+
 ## Uso sin instalar en la PC del trabajo
-El PDF, las capturas y el video se pueden revisar como archivos. Para ejecutar el programa hace falta un equipo autorizado con JDK y MySQL, que puede ser otro equipo. No ejecute instaladores en una PC que no lo permita.
+El informe Word, las capturas y el video se pueden revisar como archivos. El PDF definitivo se exporta desde Word con Calibri disponible. Para ejecutar el programa hace falta un equipo autorizado con JDK y MySQL, que puede ser otro equipo. No ejecute instaladores en una PC que no lo permita.
 
 ## Requisitos del equipo de ejecución
 JDK 17+, MySQL 8.0.16+ (por las restricciones CHECK), IDE Java con soporte Maven, por ejemplo Eclipse o IntelliJ IDEA. La apertura y ejecución desde IntelliJ IDEA se documentan mediante las capturas aportadas por el alumno. El proyecto incluye pom.xml, fuentes convencionales y scripts de compilación.
@@ -28,13 +31,30 @@ Utilizar una base exclusiva de pruebas creada con el mismo esquema y una cuenta 
 Opciones: Nueva orden, Consultar, Cambiar estado, Guardar archivo, Recuperar archivo, Salir. El filtro vacío consulta todas; ID positivo consulta una orden. Los archivos .lat son binarios versionados LAT-OT-1, no legibles como CSV. Guardar consulta todas las órdenes, sin aplicar el filtro visible. Recuperar valida primero todo el archivo y luego pide confirmación; inserta las órdenes con nuevos ID en una transacción. Repetir la recuperación genera duplicados; no restaura los ID ni la fecha original. No es una copia completa de seguridad de MySQL.
 
 ## Evidencia y límites
-La aplicación no gestiona permisos, licencias de trabajo, historial de estados, autenticación ni autorización de maniobras. No sustituye procedimientos eléctricos. Cambiar estado permite cualquiera de los tres estados del prototipo. No hay sincronización móvil ni servicios REST. MySQL puede negociar TLS en su conexión JDBC; esto no implica una capa de servicios HTTPS. No se evaluaron concurrencia multiusuario, rendimiento, carga, accesibilidad ni instalación en la PC del alumno. No se midieron mejoras operativas reales.
+La aplicación no gestiona permisos, licencias de trabajo, historial de estados, autenticación ni autorización de maniobras. No sustituye procedimientos eléctricos. Cambiar estado permite cualquiera de los tres estados del prototipo. No hay sincronización móvil ni servicios REST. MySQL puede negociar TLS en su conexión JDBC; esto no implica una capa de servicios HTTPS. No se evaluaron concurrencia multiusuario, rendimiento, carga, accesibilidad ni recuperación automática ante una caída del equipo. No se midieron mejoras operativas reales.
 
-## Publicación pendiente
-No existe todavía un enlace verificado al repositorio del alumno. El PDF lo declara; debe agregarse antes de enviar la actividad. No reemplazarlo por https://github.com/ genérico. Publicar fuentes, pom.xml, scripts, SQL, docs y evidencias; omitir out, bases de datos, credenciales y .env. El video de presentación utiliza la voz aportada por Luis Ignacio Ramírez y subtítulos sincronizados. Dura 3 minutos y 21 segundos. Se incluyen el video MP4 y los subtítulos SRT.
+## Repositorio y presentación
+Repositorio público del alumno: https://github.com/luigioctavio2022/lat-ordenes-trabajo-ap4
+La publicación se documentó mediante la captura aportada por el alumno. Este paquete incorpora el informe integral de las actividades 1 a 4; para actualizar la copia ya publicada, reemplazar la documentación del repositorio con esta versión. El código Java de producción conserva la versión probada.
+
+El video utiliza la voz aportada por Luis Ignacio Ramírez y subtítulos sincronizados. Dura 3 minutos y 21 segundos; se incluyen MP4 y SRT.
 
 ## Formato del informe
-Se incluye una versión editable configurada en Calibri 11, A4 y espaciado simple. Al generar el PDF en este entorno se usa Carlito 11 como sustitución de Calibri, que no está disponible. Para cumplir literalmente la tipografía, exportar el DOCX desde Word en un equipo donde Calibri ya esté disponible, sin instalar nada en la PC del trabajo. Conservar el nombre RAMIREZ-LUIS-IGNACIO-AP4.PDF.
+El informe integral se encuentra en docs/RAMIREZ-LUIS-IGNACIO-AP4.docx. Recupera el desarrollo del negocio de la actividad inicial, mantiene las correcciones dentro de sus secciones y organiza las cuatro actividades con portada e índice actualizable. Configuración: Calibri 11, A4 y espaciado simple, conservando el logotipo y el estilo del documento inicial.
+
+El PDF abreviado anterior se excluye de este paquete para evitar su entrega por error. Abrir el Word completo en un equipo con Calibri, actualizar todos los campos y exportar como RAMIREZ-LUIS-IGNACIO-AP4.PDF. Revisar el resultado y cargar ese PDF junto con la documentación actualizada en GitHub y en el aula, según corresponda.
 
 ## Configuración de ejecución en IntelliJ
 Usar una configuración de tipo Application, clase principal lat.Main, JDK 17 y classpath del módulo Maven. Definir LAT_DB_USER y LAT_DB_PASSWORD en el editor de variables de entorno. No editar workspace.xml manualmente. Mantener las configuraciones con claves fuera de GitHub; .idea y .run quedan excluidas por .gitignore. Ejecutar el JAR con el classpath indicado en este README, incluyendo lib/*; el comando java -jar aislado no incorpora el conector.
+
+## Correspondencia con TP1 a TP4
+La matriz docs/CONTROL_ENTREGABLES_TP1_TP4.csv identifica cada requisito y su evidencia. Los seis casos de uso se detallan en docs/CASOS_USO.md y su trazabilidad en docs/TRAZABILIDAD_CASOS_USO.csv. Los diagramas se incluyen como PNG, SVG y, cuando corresponde, PlantUML.
+
+El esquema operativo es sql/esquema.sql, con una tabla. El modelo ampliado de docs/modelo-ampliado-propuesto.sql contiene siete tablas y siete claves foráneas: es una propuesta normalizada para la evolución, no la base usada por Java. Sus cardinalidades están explicadas en docs/CARDINALIDADES.md.
+
+La práctica sql/practica_tp2.sql demuestra inserción, consulta, actualización y borrado en una base de demostración independiente. Requiere una cuenta autorizada para crear esa base y ejecutar las operaciones; no amplía permisos ni agrega una función de borrado a la aplicación. Su ejecución complementaria en MySQL 8.0.46 y la creación del modelo propuesto están registradas en evidencias/VERIFICACION_SQL_TP2.txt, separadas de las 23 comprobaciones anteriores y las seis pruebas manuales en Windows.
+
+La participación en foros, encuentros y comunicaciones debe acreditarse mediante actividades reales del alumno.
+
+## Revisión de citas y referencias
+Informe revisado: referencias ordenadas, sangría francesa, títulos en cursiva, citas concordantes y figuras y tablas numeradas, tituladas y con notas de procedencia. Se conserva el formato solicitado por la materia: A4, Calibri 11 y espaciado simple. Exportar el PDF definitivo desde Word y revisar su presentación.

@@ -1,0 +1,7 @@
+﻿Caso,Operacion,Esperado y observado,Evaluacion
+MW01,Alta y consulta de correctiva,"Esperado: orden CORRECTIVA en PENDIENTE. Observado: confirmación del registro y consulta de ID 2, línea lat_prueba, piquete p1 y descripción de prueba.",Conforme
+MW02,Cambio de estado,Esperado: ID 2 en EN_PROCESO. Observado: selección de estado y consulta posterior con ese valor.,Conforme
+MW03,Persistencia al reabrir,Esperado: conservar ID 2 y su estado. Observado: en el recorrido de reinicio guiado se consulta ID 2 y se recupera EN_PROCESO.,Conforme
+MW04,Línea vacía,Esperado: aviso de validación y ninguna alta. Observado: «Línea: complete entre 1 y 100 caracteres»; la consulta sin filtro conserva solo los ID 1 y 2.,Conforme
+MW05,Guardar archivo,Esperado: escribir las dos órdenes. Observado: la interfaz informa «2 órdenes guardadas en archivo».,Conforme
+MW06,Recuperar archivo,Esperado: agregar dos órdenes con nuevos ID y conservar estados. Observado: aviso previo de importación y listado de cuatro órdenes; ID 3 correctiva EN_PROCESO e ID 4 preventiva FINALIZADA.,Conforme

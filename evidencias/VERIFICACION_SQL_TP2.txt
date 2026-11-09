@@ -1,0 +1,22 @@
+Verificación SQL complementaria TP2
+Fecha: 9 de noviembre de 2026
+Entorno separado de la PC Windows del alumno
+MySQL: 8.0.46-0ubuntu0.24.04.3
+
+Práctica de una tabla en lat_ap4_tp2_demostracion:
+1	LAT-DEMO-TP2	P-DEMO	Registro académico temporal	PREVENTIVA	PENDIENTE
+EN_PROCESO
+1
+0
+0
+
+Comprobaciones observadas:
+- INSERT devuelve una orden ficticia.
+- UPDATE devuelve EN_PROCESO.
+- DELETE afecta 1 fila del ID creado en la transacción.
+- Consulta posterior del ID devuelve 0 filas.
+- Al finalizar con ROLLBACK el ID sigue ausente.
+- DDL ampliado normalizado: 7 tablas creadas, 7 FK y 2 estados NOT NULL.
+
+Estas comprobaciones no modifican lat_ot_ap4, no son una repetición de las 23 pruebas automatizadas y no se atribuyen a la PC del alumno.
+La creación del DDL fue comprobada; no equivale a implementar en Java el sistema ampliado ni probar todos sus requisitos de negocio.

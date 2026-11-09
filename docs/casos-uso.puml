@@ -1,0 +1,18 @@
+@startuml
+left to right direction
+actor "Usuario local" as U
+rectangle "Sistema local de órdenes de trabajo" {
+ usecase "CU01 Crear orden" as C1
+ usecase "CU02 Consultar órdenes" as C2
+ usecase "CU03 Cambiar estado" as C3
+ usecase "CU04 Guardar órdenes en archivo" as C4
+ usecase "CU05 Recuperar órdenes de archivo" as C5
+ usecase "CU06 Cerrar aplicación" as C6
+}
+U -- C1
+U -- C2
+U -- C3
+U -- C4
+U -- C5
+U -- C6
+@enduml

@@ -1,0 +1,7 @@
+﻿Caso,Implementacion,Pruebas de apoyo
+CU01,VentanaPrincipal.crear → OrdenServicio.crear → Orden.crear → MySqlOrdenDao.insertar.,CP01–CP06 y CP12; MW01 y MW04.
+CU02,VentanaPrincipal.consultar → OrdenServicio.buscar → MySqlOrdenDao.listar → VentanaPrincipal.mostrar.,"CP10, CP11, CP13 y CP16; consultas observadas en MW01 y MW03."
+CU03,VentanaPrincipal.cambiar → OrdenServicio.cambiar → MySqlOrdenDao.actualizarEstado.,"CP14, CP15, CP17 y CP18; MW02 y MW03."
+CU04,VentanaPrincipal.guardar → OrdenServicio.buscar → ArchivoOrdenes.guardar.,CP08 para escritura y lectura Unicode; MW05 para el recorrido de interfaz.
+CU05,VentanaPrincipal.recuperar → ArchivoOrdenes.leer → OrdenServicio.importar → MySqlOrdenDao.importar.,"CP08, CP09 y CP20–CP22; MW06 verifica el recorrido válido, sin inducir fallo SQL."
+CU06,VentanaPrincipal: item Salir → dispose y DISPOSE_ON_CLOSE.,El recorrido MW03 incluye cierre y reapertura; no existe un caso automatizado exclusivo para CU06.

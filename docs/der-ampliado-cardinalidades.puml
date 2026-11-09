@@ -1,0 +1,37 @@
+@startuml
+hide circle
+entity zonas {
+* id_zona : INT <<PK>>
+}
+entity lineas {
+* id_linea : INT <<PK>>
+* id_zona : INT <<FK NOT NULL>>
+}
+entity piquetes {
+* id_piquete : INT <<PK>>
+* id_linea : INT <<FK NOT NULL>>
+}
+entity activos {
+* id_activo : INT <<PK>>
+* id_piquete : INT <<FK NOT NULL>>
+}
+entity usuarios {
+* id_usuario : INT <<PK>>
+}
+entity ordenes_trabajo {
+* id_ot : INT <<PK>>
+* id_linea : INT <<FK NOT NULL>>
+* id_operario_responsable : INT <<FK NOT NULL>>
+}
+entity detalle_ot_activos {
+* id_ot : INT <<PK FK>>
+* id_activo : INT <<PK FK>>
+}
+zonas ||--o{ lineas
+lineas ||--o{ piquetes
+piquetes ||--o{ activos
+usuarios ||--o{ ordenes_trabajo
+lineas ||--o{ ordenes_trabajo
+ordenes_trabajo ||--o{ detalle_ot_activos
+activos ||--o{ detalle_ot_activos
+@enduml

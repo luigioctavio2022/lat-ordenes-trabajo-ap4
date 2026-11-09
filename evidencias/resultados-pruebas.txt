@@ -1,0 +1,24 @@
+APROBADO | Clase abstracta y polimorfismo preventiva
+APROBADO | Polimorfismo correctiva
+APROBADO | Campo vacío rechazado
+APROBADO | Límite 101 caracteres rechazado
+APROBADO | Límite 100 caracteres aceptado
+APROBADO | Tipo inválido rechazado
+APROBADO | Arreglos de fila y estados
+APROBADO | Archivo guarda y recupera datos Unicode
+APROBADO | Archivo truncado rechazado
+APROBADO | Búsqueda no numérica rechazada
+APROBADO | Desbordamiento de ID rechazado
+APROBADO | MySQL inserta y lista orden
+APROBADO | MySQL búsqueda por ID
+APROBADO | MySQL actualiza estado
+APROBADO | Nueva conexión conserva persistencia
+APROBADO | ID inexistente devuelve lista vacía
+APROBADO | Actualización de ID inexistente controlada
+APROBADO | Estado inválido rechazado
+APROBADO | PreparedStatement conserva caracteres SQL como datos
+APROBADO | Archivo recuperado en MySQL mediante lote
+APROBADO | Error SQL en lote propagado
+APROBADO | Rollback revierte primer INSERT del lote
+APROBADO | Conexión inaccesible produce SQLException controlable
+RESULTADO: 23 aprobadas, 0 fallidas

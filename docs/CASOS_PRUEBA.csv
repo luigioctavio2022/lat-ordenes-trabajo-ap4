@@ -1,0 +1,24 @@
+ID,Caso,Entrada o procedimiento,Resultado esperado y observado,Estado,Fecha
+CP01,Clase abstracta y preventiva,Crear tipo PREVENTIVA,Instancia Preventiva y getTipo PREVENTIVA,APROBADO,2026-11-05
+CP02,Correctiva,Crear tipo CORRECTIVA,Instancia Correctiva,APROBADO,2026-11-05
+CP03,Obligatorios,Línea con un espacio,IllegalArgumentException; sin alta,APROBADO,2026-11-05
+CP04,Límite superior,Línea de 101 caracteres,IllegalArgumentException,APROBADO,2026-11-05
+CP05,Límite válido,Línea de 100 caracteres,Se construye la entidad,APROBADO,2026-11-05
+CP06,Tipo inválido,Tipo OTRO,IllegalArgumentException,APROBADO,2026-11-05
+CP07,Arreglos,Consultar fila y catálogo de estados,Fila de 6 posiciones; 3 estados,APROBADO,2026-11-05
+CP08,Archivo Unicode,Dos órdenes con acentos y comillas,Lectura conserva texto y cantidad,APROBADO,2026-11-05
+CP09,Archivo truncado,Archivo de 3 bytes,IOException,APROBADO,2026-11-05
+CP10,Filtro inválido,ID abc,IllegalArgumentException,APROBADO,2026-11-05
+CP11,ID desbordado,ID 999999999999,IllegalArgumentException,APROBADO,2026-11-05
+CP12,Alta MySQL,Crear preventiva válida,Cantidad aumenta en 1,APROBADO,2026-11-05
+CP13,Búsqueda MySQL,ID recién persistido,Una fila,APROBADO,2026-11-05
+CP14,Actualización,ID existente a EN_PROCESO,Consulta devuelve EN_PROCESO,APROBADO,2026-11-05
+CP15,Persistencia,Crear nuevo DAO y conexión,Conserva EN_PROCESO,APROBADO,2026-11-05
+CP16,Ausencia,ID 2147483647,Lista vacía,APROBADO,2026-11-05
+CP17,Actualizar inexistente,ID 2147483647 a FINALIZADA,IllegalArgumentException,APROBADO,2026-11-05
+CP18,Estado inválido,ID existente a OTRO,IllegalArgumentException,APROBADO,2026-11-05
+CP19,Caracteres SQL,"Línea con comilla, punto y coma y guiones",Texto almacenado literalmente,APROBADO,2026-11-05
+CP20,Archivo a MySQL,Lote de 2 órdenes recuperadas,Cantidad aumenta en 2,APROBADO,2026-11-05
+CP21,Error en lote,Primera válida y segunda con ENUM inválido,SQLException propagada,APROBADO,2026-11-05
+CP22,Atomicidad,Reconsultar tras el lote inválido,Cantidad igual a la anterior; primera fila revertida,APROBADO,2026-11-05
+CP23,Conexión fallida,Puerto local 1 sin servicio,SQLException,APROBADO,2026-11-05

@@ -1,0 +1,19 @@
+@startuml
+abstract class Orden { +getTipo(): String
++fila(): Object[] }
+class Preventiva
+class Correctiva
+interface OrdenDao { +insertar(Orden)
++listar(Integer): ArrayList<Orden>
++actualizarEstado(int,String)
++importar(ArrayList<Orden>) }
+class MySqlOrdenDao
+class Conexion
+class OrdenServicio
+Preventiva --|> Orden
+Correctiva --|> Orden
+MySqlOrdenDao ..|> OrdenDao
+MySqlOrdenDao --> Conexion
+OrdenServicio --> OrdenDao
+OrdenDao ..> Orden
+@enduml

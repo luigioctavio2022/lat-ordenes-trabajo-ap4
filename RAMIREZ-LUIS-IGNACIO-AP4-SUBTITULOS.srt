@@ -1,0 +1,225 @@
+1
+00:00:00,235 --> 00:00:02,830
+Hola, soy Luis Ignacio Ramírez.
+
+2
+00:00:03,195 --> 00:00:06,450
+En esta presentación voy a explicar mi
+proyecto integrador,
+
+3
+00:00:06,815 --> 00:00:11,535
+un sistema local de gestión de órdenes de
+trabajo para mantenimiento de líneas de
+
+4
+00:00:11,555 --> 00:00:14,430
+alta tensión de 132 kilovoltios.
+
+5
+00:00:15,135 --> 00:00:20,750
+El proyecto toma como referencia el sector
+de mantenimiento de ENERSA,
+
+6
+00:00:21,115 --> 00:00:22,115
+Zona Oeste.
+
+7
+00:00:22,355 --> 00:00:26,415
+La problemática abordada es el registro de
+tareas en papel y su posterior
+
+8
+00:00:26,435 --> 00:00:30,710
+transcripción, que dificulta localizar y
+consultar la información.
+
+9
+00:00:31,175 --> 00:00:36,210
+La propuesta busca concentrar esos
+registros en una aplicación de escritorio.
+
+10
+00:00:36,755 --> 00:00:42,130
+Para organizar el desarrollo se aplicaron
+las etapas del Proceso Unificado:
+
+11
+00:00:42,355 --> 00:00:45,870
+inicio, elaboración, construcción y
+transición.
+
+12
+00:00:46,355 --> 00:00:51,290
+Se definieron el problema, el alcance, la
+arquitectura y las pruebas.
+
+13
+00:00:51,655 --> 00:00:57,050
+La implementación es un prototipo
+operacional que permite crear órdenes,
+
+14
+00:00:57,335 --> 00:00:59,470
+consultarlas y actualizar su estado.
+
+15
+00:01:00,415 --> 00:01:05,915
+El programa utiliza Java, una interfaz
+gráfica Swing y una base de datos
+
+16
+00:01:05,935 --> 00:01:11,615
+MySQL. Se seleccionó el patrón DAO para
+separar el acceso
+
+17
+00:01:11,635 --> 00:01:14,630
+a los datos de las validaciones y de la
+presentación.
+
+18
+00:01:15,135 --> 00:01:20,370
+Así, las sentencias SQL quedan concentradas
+en las clases de persistencia.
+
+19
+00:01:20,795 --> 00:01:24,615
+También se incorporó una clase abstracta
+llamada Orden,
+
+20
+00:01:24,635 --> 00:01:28,810
+de la que heredan las órdenes preventivas y
+correctivas.
+
+21
+00:01:29,435 --> 00:01:33,290
+Ambas comparten atributos y validaciones,
+
+22
+00:01:33,495 --> 00:01:36,690
+pero identifican su tipo mediante un método
+propio.
+
+23
+00:01:37,015 --> 00:01:42,470
+Desde el menú principal podemos crear una
+orden ingresando línea,
+
+24
+00:01:42,555 --> 00:01:45,470
+piquete, descripción y tipo de
+mantenimiento.
+
+25
+00:01:45,935 --> 00:01:49,130
+Antes de guardarla, el sistema valida los
+campos.
+
+26
+00:01:49,215 --> 00:01:51,215
+Cuando la inserción termina correctamente,
+
+27
+00:01:51,235 --> 00:01:53,070
+muestra una confirmación.
+
+28
+00:01:53,675 --> 00:01:59,190
+La opción Consultar permite listar las
+órdenes o buscar una por su identificador.
+
+29
+00:01:59,455 --> 00:02:03,255
+Al seleccionar un registro, podemos cambiar
+su estado a pendiente,
+
+30
+00:02:03,275 --> 00:02:05,290
+en proceso o finalizada.
+
+31
+00:02:05,875 --> 00:02:11,215
+Los datos se recuperan y actualizan
+directamente en MySQL mediante consultas
+
+32
+00:02:11,235 --> 00:02:12,370
+parametrizadas.
+
+33
+00:02:13,195 --> 00:02:17,270
+Los arreglos se utilizan para los
+encabezados,
+
+34
+00:02:17,595 --> 00:02:19,170
+los tipos y los estados.
+
+35
+00:02:19,815 --> 00:02:25,255
+En cambio, ArrayList almacena una cantidad
+variable de órdenes
+
+36
+00:02:25,275 --> 00:02:27,150
+recuperadas de la base.
+
+37
+00:02:28,075 --> 00:02:32,615
+Como función complementaria, se permite
+guardar y recuperar órdenes mediante
+
+38
+00:02:32,635 --> 00:02:38,095
+archivos. La recuperación utiliza una
+
+39
+00:02:38,115 --> 00:02:40,795
+transacción. Si alguna inserción falla,
+
+40
+00:02:40,815 --> 00:02:42,990
+se revierte el lote completo.
+
+41
+00:02:43,755 --> 00:02:48,330
+El tratamiento de excepciones permite
+informar errores de validación,
+
+42
+00:02:48,775 --> 00:02:52,730
+archivos o conexión, sin presentar la
+operación como exitosa.
+
+43
+00:02:53,355 --> 00:02:56,810
+Además, los recursos de conexión se cierran
+automáticamente.
+
+44
+00:02:58,035 --> 00:03:02,770
+Para verificar el prototipo se realizaron
+23 comprobaciones,
+
+45
+00:03:03,215 --> 00:03:07,190
+todas aprobadas, incluyendo operaciones
+reales con MySQL.
+
+46
+00:03:07,635 --> 00:03:12,470
+Esta versión utiliza una tabla y mantiene
+un alcance acotado.
+
+47
+00:03:12,755 --> 00:03:17,170
+La administración de usuarios, las
+licencias eléctricas y el historial completo
+
+48
+00:03:17,215 --> 00:03:19,890
+quedan previstos para futuras ampliaciones.
+

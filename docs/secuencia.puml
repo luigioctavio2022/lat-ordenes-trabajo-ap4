@@ -1,0 +1,19 @@
+@startuml
+participant Vista
+participant Servicio
+participant DAO
+database MySQL
+Vista -> Servicio: crear datos
+Servicio -> Servicio: validar y construir Orden
+Servicio -> DAO: insertar orden
+DAO -> MySQL: INSERT parametrizado
+alt éxito
+MySQL --> DAO: confirmación
+DAO --> Servicio: retorno
+Servicio --> Vista: aviso de éxito en done
+else error SQL
+MySQL --> DAO: SQLException
+DAO --> Servicio: propagar excepción
+Servicio --> Vista: aviso controlado en done
+end
+@enduml
